@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dt=1
+t="Time: "
+S0="Socket0 (uj): "
+S1="Socket1 (uj): "
+
+while :
+do
+        printf "Time: "  2>&1|tee -a GPU_P.txt
+        date +"%Y.%m.%d.%H.%M.%S.%3N" 2>&1|tee -a GPU_P.txt
+        nvidia-smi -q -d MEMORY,POWER 2>&1|tee -a GPU_P.txt
+        sleep $dt
+done

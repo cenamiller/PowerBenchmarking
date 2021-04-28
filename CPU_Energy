@@ -1,0 +1,24 @@
+#!/bin/bash 
+
+dt=1   #seconds
+t="Time:  "
+S0="Socket0 (uj): "
+S1="Socket1 (uj): "
+ofile=CPU_E.txt   #output file name
+
+while :
+do     
+        echo -n $t >> $ofile 
+        #printf $t -a $ofile
+        date +"%Y.%m.%d.%H.%M.%S.%3N" >> $ofile #socket_CPU_E.txt
+        echo -n "Socket0 (uj): " >> $ofile
+        cat /sys/devices/virtual/powercap/intel-rapl/intel-rapl\:0/energy_uj >> $ofile
+        echo -n "DRAM0 (uj)  : " >> $ofile
+        cat /sys/devices/virtual/powercap/intel-rapl/intel-rapl\:0/intel-rapl:0:0/energy_uj >> $ofile
+        echo -n "Socket1 (uj): " >> $ofile
+        cat /sys/devices/virtual/powercap/intel-rapl/intel-rapl\:1/energy_uj >> $ofile
+        echo -n "DRAM1 (uj)  : " >> $ofile
+        cat /sys/devices/virtual/powercap/intel-rapl/intel-rapl\:1/intel-rapl:1:0/energy_uj >> $ofile
+        sleep $dt 
+done
+
